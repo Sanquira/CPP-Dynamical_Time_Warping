@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1424563202 source:/home/ales/Dokumenty/NetBeansProjects/CPP/DTW_matrix_computation/DTW_matrix_computation/main.cpp
+	<iostream>
+	<vector>
+	<math.h>
+
