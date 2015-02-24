@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <math.h>
+//#include "dtw.h"
 
 using namespace std;
 
@@ -29,7 +30,7 @@ double DTW_dist(vector< vector<double> > pattern, vector< vector<double> > test)
     for(int i=0;i<pattern.size();i++){
         dist0.push_back(dist0[i]+cepstral_dist_c0(test[0],pattern[i]));
     }
-    dist0.erase(dist0.begin());
+    dist0[0] = dist0[1];
 
     vector<double> dist1 = {0};
     for(int i=0;i<test.size();i++){
@@ -37,6 +38,18 @@ double DTW_dist(vector< vector<double> > pattern, vector< vector<double> > test)
     }
     dist1.erase(dist1.begin());
 
+    for(int j = 1;j<test.size();j++){           // row
+        for(int i=1;i<pattern.size()-1;i++){    // collumn
+            double cost = cepstral_dist_c0(test[j],pattern[i]);
+            if(i==1){
+                dist0[i-1]=minimum(dist0[i],dist0[i+1],dist1[j])+cost;
+            } else {
+                dist0[i-1]=minimum(dist0[i],dist0[i+1],dist0[i-2])+cost;
+            }
+        }
+        dist0.insert(dist0.begin(),dist0[0]);
+        dist0.pop_back();
+    }
 
     cout << dist0[0]-dist1[0] << endl;
 return 0;
@@ -48,7 +61,7 @@ int main()
 
 
 
-
+///*
     vector< vector<double> > test3;
     vector< vector<double> > test4;
 
@@ -66,11 +79,9 @@ int main()
             test1.push_back((i*j)^6);
         }
         test4.push_back(test1);
-    }
+    }//*/
 
-    DTW_dist(test3,test4);
-
-
+    DTW_dist(test3,test3);
 
     cout << "Done" << endl;
     return 0;
