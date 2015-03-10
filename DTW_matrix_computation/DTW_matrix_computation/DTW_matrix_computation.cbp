@@ -33,7 +33,9 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="DTW.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="mfcc.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />
