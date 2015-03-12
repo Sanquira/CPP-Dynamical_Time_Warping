@@ -33,9 +33,20 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Linker>
+			<Add library="fftw3" />
+		</Linker>
 		<Unit filename="DTW.h" />
+		<Unit filename="VAD.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="cepstral_proc.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="main.cpp" />
-		<Unit filename="mfcc.cpp" />
+		<Unit filename="signal_preproc.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Extensions>
 			<code_completion />
 			<debugger />

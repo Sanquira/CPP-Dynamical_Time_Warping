@@ -1,15 +1,33 @@
 # depslib dependency file v1.0
-1425995947 source:/home/ales/Dokumenty/NetBeansProjects/CPP/DTW_matrix_computation/DTW_matrix_computation/main.cpp
+1426094316 source:/home/ales/Dokumenty/NetBeansProjects/CPP/DTW_matrix_computation/DTW_matrix_computation/main.cpp
 	<iostream>
 	<vector>
 	<math.h>
 	"DTW.h"
+	"signal_preproc.h"
+	"cepstral_proc.h"
+	"VAD.h"
 
 1424779720 source:/home/sanquira/Dokumenty/programovani/CPP/DTW_matrix_computation/DTW_matrix_computation/main.cpp
 	<iostream>
 	<vector>
 	<math.h>
 
-1425995859 /home/ales/Dokumenty/NetBeansProjects/CPP/DTW_matrix_computation/DTW_matrix_computation/DTW.h
+1426068758 /home/ales/Dokumenty/NetBeansProjects/CPP/DTW_matrix_computation/DTW_matrix_computation/DTW.h
+	<vector>
+
+1426086039 source:/home/ales/Dokumenty/NetBeansProjects/CPP/DTW_matrix_computation/DTW_matrix_computation/mfcc.cpp
+
+1426086035 /home/ales/Dokumenty/NetBeansProjects/CPP/DTW_matrix_computation/DTW_matrix_computation/signal_preproc.h
+	<iomanip>
+	<fstream>
+	<vector>
+
+1426090246 /home/ales/Dokumenty/NetBeansProjects/CPP/DTW_matrix_computation/DTW_matrix_computation/cepstral_proc.h
+	<vector>
+	<math.h>
+	<fftw3.h>
+
+1426091855 /home/ales/Dokumenty/NetBeansProjects/CPP/DTW_matrix_computation/DTW_matrix_computation/VAD.h
 	<vector>
 

@@ -24,20 +24,20 @@ double minimum(double num1, double num2, double num3){
     return std::min(min(num1,num2),num3);
 }
 
-double DTW_dist(vector< vector<double> > pattern, vector< vector<double> > test){
+double DTW_dist(vector< vector<double> > pattern, vector< vector<double> > test, double (*fptr_cepst_dist)(vector<double> frst, vector<double> scnd)){
     vector<double> dist0 = {0};
     for(int i=0;i<pattern.size();i++){
-        dist0.push_back(dist0[i]+cepstral_dist_c0(test[0],pattern[i]));
+        dist0.push_back(dist0[i]+(*fptr_cepst_dist)(test[0],pattern[i]));
     }
     dist0.erase(dist0.begin());
 
-    double cd1old, cd1new = cepstral_dist_c0(test[0],pattern[0]);
+    double cd1old, cd1new = (*fptr_cepst_dist)(test[0],pattern[0]);
 
     for(int j = 1;j<test.size();j++){           // row
         cd1old = cd1new;
-        cd1new = cd1old + cepstral_dist_c0(test[j],pattern[0]);
+        cd1new = cd1old + (*fptr_cepst_dist)(test[j],pattern[0]);
         for(int i=1;i<pattern.size();i++){    // collumn
-            double cost = cepstral_dist_c0(test[j],pattern[i]);
+            double cost = (*fptr_cepst_dist)(test[j],pattern[i]);
             if(i==1){
                 dist0[i-1]=minimum(dist0[i],cd1old,cd1new)+cost;
             } else {
