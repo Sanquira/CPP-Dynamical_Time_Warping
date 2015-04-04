@@ -4,6 +4,8 @@
 #include <iomanip>
 #include <fstream>
 #include <vector>
+#include "portaudio.h"
+
 using namespace std;
 
 vector<double> load_signal(string name)
@@ -23,6 +25,32 @@ vector<double> load_signal(string name)
 
 	file.close();
 	return sig;
+}
+
+static int callbackFce( const void *inputBuffer, void *outputBuffer,
+unsigned long framesPerBuffer,
+const PaStreamCallbackTimeInfo* timeInfo,
+PaStreamCallbackFlags statusFlags,
+void *userData )
+{
+
+}
+
+/**
+* Tahle funkce dela tohle. OMG OMG OMG
+*/
+vector<double> record_signal()
+{
+    cout << "Init PA" << endl;
+    cout << Pa_GetErrorText(Pa_Initialize()) << endl ;
+
+    cout << "Open PA Stream" << endl;
+    PaStream *stream;
+    cout << Pa_GetErrorText(Pa_OpenDefaultStream(&stream,1,0,paInt16,16000,160000,callbackFce,)) << endl ;
+
+
+
+
 }
 
 #endif // SIGNAL_PREPROC_INCLUDED

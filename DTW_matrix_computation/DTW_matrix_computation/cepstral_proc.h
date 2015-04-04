@@ -168,4 +168,33 @@ vector<double> compute_mfcc(vector<vector<double> > filter_bank, vector<double> 
 	return result;
 }
 
+vector<vector<double> > make_mfcc(vector<double> signal, int frame_lenght_ms, int frame_step_ms, int fs, int num_bands, int fmin, int fmax, int num_ceps)
+{
+	//short time analysis
+	int frame_lenght = (frame_lenght_ms / 1000.0) * fs;
+	int frame_step = (frame_step_ms / 1000.0) * fs;
+	int frame_count = ((signal.size() - frame_lenght) / frame_step) + 1;
+	vector<double> output;
+	vector<vector<double> > matrix;
+	vector<double> frame(frame_lenght);
+
+	// generovani vahovaciho okna
+	vector<double> hamming_window = hamming(frame_lenght);
+
+	//vypocet banky filtru
+	vector<vector<double> > filter_bank = compute_fbank(num_bands, fs, frame_lenght, fmin, fmax);
+
+	for (int i = 0; i < frame_count; i++) {
+		for (int j = 0; j < frame_lenght; j++) {
+			frame[j] = (signal[(i * frame_step) + j]);
+		}
+//		if(VAD_energy(frame,power(load_signal("ticho.raw"))*2)){
+            output = (compute_mfcc(filter_bank, hamming_window, frame, num_ceps));
+            matrix.push_back(output);
+//		}
+	}
+
+	return matrix;
+}
+
 #endif // CEPSTRAL_PROC_INCLUDED

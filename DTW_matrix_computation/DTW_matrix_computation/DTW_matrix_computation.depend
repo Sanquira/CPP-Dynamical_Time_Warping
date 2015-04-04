@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1426094316 source:/home/ales/Dokumenty/NetBeansProjects/CPP/DTW_matrix_computation/DTW_matrix_computation/main.cpp
+1428157171 source:/home/ales/Dokumenty/NetBeansProjects/CPP/DTW_matrix_computation/DTW_matrix_computation/main.cpp
 	<iostream>
 	<vector>
 	<math.h>
@@ -18,16 +18,19 @@
 
 1426086039 source:/home/ales/Dokumenty/NetBeansProjects/CPP/DTW_matrix_computation/DTW_matrix_computation/mfcc.cpp
 
-1426086035 /home/ales/Dokumenty/NetBeansProjects/CPP/DTW_matrix_computation/DTW_matrix_computation/signal_preproc.h
+1428175061 /home/ales/Dokumenty/NetBeansProjects/CPP/DTW_matrix_computation/DTW_matrix_computation/signal_preproc.h
 	<iomanip>
 	<fstream>
 	<vector>
+	"portaudio.h"
 
-1426090246 /home/ales/Dokumenty/NetBeansProjects/CPP/DTW_matrix_computation/DTW_matrix_computation/cepstral_proc.h
+1428156823 /home/ales/Dokumenty/NetBeansProjects/CPP/DTW_matrix_computation/DTW_matrix_computation/cepstral_proc.h
 	<vector>
 	<math.h>
 	<fftw3.h>
 
 1426091855 /home/ales/Dokumenty/NetBeansProjects/CPP/DTW_matrix_computation/DTW_matrix_computation/VAD.h
 	<vector>
+
+1428158658 /home/ales/Dokumenty/NetBeansProjects/CPP/DTW_matrix_computation/DTW_matrix_computation/portaudio.h
 
