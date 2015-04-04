@@ -46,7 +46,7 @@ vector<double> record_signal()
 
     cout << "Open PA Stream" << endl;
     PaStream *stream;
-    cout << Pa_GetErrorText(Pa_OpenDefaultStream(&stream,1,0,paInt16,16000,160000,callbackFce,)) << endl ;
+    cout << Pa_GetErrorText(Pa_OpenDefaultStream(&stream,1,0,paInt16,16000,160000,callbackFce,&data)) << endl ;
 
 
 

@@ -35,6 +35,7 @@
 		</Compiler>
 		<Linker>
 			<Add library="fftw3" />
+			<Add library="portaudio" />
 		</Linker>
 		<Unit filename="DTW.h" />
 		<Unit filename="VAD.h">
