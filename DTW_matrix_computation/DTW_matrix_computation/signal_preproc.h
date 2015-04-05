@@ -84,7 +84,7 @@ vector<double> record_signal()
     cout << recSig.size() << endl;
 
 
-
+    return recSig;
 
 }
 
