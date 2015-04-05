@@ -8,6 +8,8 @@
 
 using namespace std;
 
+vector<double> recSig;
+
 vector<double> load_signal(string name)
 {
     vector<double> sig;
@@ -27,12 +29,20 @@ vector<double> load_signal(string name)
 	return sig;
 }
 
+
 static int callbackFce( const void *inputBuffer, void *outputBuffer,
 unsigned long framesPerBuffer,
 const PaStreamCallbackTimeInfo* timeInfo,
-PaStreamCallbackFlags statusFlags,
-void *userData )
+PaStreamCallbackFlags statusFlags,void *userdata)
 {
+
+    short** pData = (short**) inputBuffer;
+
+    for(long int i = 0;i<framesPerBuffer;i++){
+        recSig.push_back(pData[0][i]);
+    }
+
+    return paContinue;
 
 }
 
@@ -45,8 +55,33 @@ vector<double> record_signal()
     cout << Pa_GetErrorText(Pa_Initialize()) << endl ;
 
     cout << "Open PA Stream" << endl;
-    PaStream *stream;
-    cout << Pa_GetErrorText(Pa_OpenDefaultStream(&stream,1,0,paInt16,16000,160000,callbackFce,&data)) << endl ;
+    /*
+    PaStreamParameters  inputParameters;
+    inputParameters.channelCount=1;
+    inputParameters.device=Pa_GetDefaultInputDevice();
+    inputParameters.sampleFormat=paInt16;
+    inputParameters.suggestedLatency=Pa_GetDeviceInfo(inputParameters.device)->defaultLowInputLatency;//*/
+
+    PaStream* stream;
+
+    cout << Pa_GetDefaultInputDevice() << endl;
+    cout << Pa_GetErrorText(Pa_OpenDefaultStream(&stream,1,0,paInt16,16000,512,callbackFce,NULL)) << endl;
+
+    Pa_StartStream(stream);
+    cout << "Recording" << endl;
+
+    int delayCntr = 0;
+    while( delayCntr++ < 1 )
+    {
+        Pa_Sleep(1000);
+    }
+
+    Pa_CloseStream(stream);
+    Pa_Terminate();
+
+    cout << "Recorded" << endl;
+
+    cout << recSig.size() << endl;
 
 
 

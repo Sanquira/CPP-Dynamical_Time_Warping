@@ -38,94 +38,6 @@ typedef struct
 }
 paTestData;
 
-/* This routine is run in a separate thread to write data from the ring buffer into a file (during Recording) */
-static int threadFunctionWriteToRawFile(void* ptr)
-{
-    paTestData* pData = (paTestData*)ptr;
-
-    /* Mark thread started */
-    pData->threadSyncFlag = 0;
-
-    while (1)
-    {
-        ring_buffer_size_t elementsInBuffer = PaUtil_GetRingBufferReadAvailable(&pData->ringBuffer);
-        if ( (elementsInBuffer >= pData->ringBuffer.bufferSize / NUM_WRITES_PER_BUFFER) ||
-             pData->threadSyncFlag )
-        {
-            void* ptr[2] = {0};
-            ring_buffer_size_t sizes[2] = {0};
-
-            /* By using PaUtil_GetRingBufferReadRegions, we can read directly from the ring buffer */
-            ring_buffer_size_t elementsRead = PaUtil_GetRingBufferReadRegions(&pData->ringBuffer, elementsInBuffer, ptr + 0, sizes + 0, ptr + 1, sizes + 1);
-            if (elementsRead > 0)
-            {
-                int i;
-                for (i = 0; i < 2 && ptr[i] != NULL; ++i)
-                {
-                    fwrite(ptr[i], pData->ringBuffer.elementSizeBytes, sizes[i], pData->file);
-                }
-                PaUtil_AdvanceRingBufferReadIndex(&pData->ringBuffer, elementsRead);
-            }
-
-            if (pData->threadSyncFlag)
-            {
-                break;
-            }
-        }
-
-        /* Sleep a little while... */
-        Pa_Sleep(20);
-    }
-
-    pData->threadSyncFlag = 0;
-
-    return 0;
-}
-
-typedef int (*ThreadFunctionType)(void*);
-
-/* Start up a new thread in the given function, at the moment only Windows, but should be very easy to extend
-   to posix type OSs (Linux/Mac) */
-static PaError startThread( paTestData* pData, ThreadFunctionType fn )
-{
-#ifdef _WIN32
-    typedef unsigned (__stdcall* WinThreadFunctionType)(void*);
-    pData->threadHandle = (void*)_beginthreadex(NULL, 0, (WinThreadFunctionType)fn, pData, CREATE_SUSPENDED, NULL);
-    if (pData->threadHandle == NULL) return paUnanticipatedHostError;
-
-    /* Set file thread to a little higher prio than normal */
-    SetThreadPriority(pData->threadHandle, THREAD_PRIORITY_ABOVE_NORMAL);
-
-    /* Start it up */
-    pData->threadSyncFlag = 1;
-    ResumeThread(pData->threadHandle);
-
-#endif
-
-    /* Wait for thread to startup */
-    while (pData->threadSyncFlag) {
-        Pa_Sleep(10);
-    }
-
-    return paNoError;
-}
-
-static int stopThread( paTestData* pData )
-{
-    pData->threadSyncFlag = 1;
-    /* Wait for thread to stop */
-    while (pData->threadSyncFlag) {
-        Pa_Sleep(10);
-    }
-#ifdef _WIN32
-    CloseHandle(pData->threadHandle);
-    pData->threadHandle = 0;
-#endif
-
-    return paNoError;
-}
-
-
 /* This routine will be called by the PortAudio engine when audio is needed.
 ** It may be called at interrupt level on some machines so don't do anything
 ** that could mess up the system like calling malloc() or free().
@@ -133,8 +45,7 @@ static int stopThread( paTestData* pData )
 static int recordCallback( const void *inputBuffer, void *outputBuffer,
                            unsigned long framesPerBuffer,
                            const PaStreamCallbackTimeInfo* timeInfo,
-                           PaStreamCallbackFlags statusFlags,
-                           void *userData )
+                           PaStreamCallbackFlags statusFlags)
 {
     paTestData *data = (paTestData*)userData;
     ring_buffer_size_t elementsWriteable = PaUtil_GetRingBufferWriteAvailable(&data->ringBuffer);
