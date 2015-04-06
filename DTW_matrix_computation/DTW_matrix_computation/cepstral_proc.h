@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <math.h>
-#include <fftw3.h>
+#include "fftw3.h"
 
 using namespace std;
 
