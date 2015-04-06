@@ -47,9 +47,7 @@ PaStreamCallbackFlags statusFlags,void *userdata)
 
 }
 
-/**
-* Tahle funkce dela tohle. OMG OMG OMG
-*/
+
 vector<double> record_signal()
 {
     //cout << "Init PA" << endl;
