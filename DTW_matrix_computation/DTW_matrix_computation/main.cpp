@@ -10,7 +10,7 @@ using namespace std;
 
 int main()
 {
-    cout << "Run" <<endl;
+    //cout << "Run" <<endl;
     {//hide some scrap
 /*
     vector< vector<double> > test3;
@@ -39,6 +39,10 @@ int main()
     //end of scrap
 
     vector<double> rsig = record_signal();
+    for(int i=0 ;i<rsig.size();i++){
+        cout << rsig[i] << " ";
+    }
+    cout << endl;
 /*
     vector<vector<double> > sigs = {load_signal("jedna.raw"),load_signal("dva.raw"),load_signal("tri.raw"),load_signal("ctyry.raw")};
     vector<double> pattern = load_signal("jedna_test.raw");
@@ -48,7 +52,7 @@ int main()
 
 //    make_mfcc(load_signal("audio.raw"), 25, 10, 16000, 24, 0, 8000, 13);
 
-    cout << "Done" << endl;
+    //cout << "Done" << endl;
     return 0;
 }
 

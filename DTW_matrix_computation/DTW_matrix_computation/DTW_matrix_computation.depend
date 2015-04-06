@@ -8,10 +8,14 @@
 	"cepstral_proc.h"
 	"VAD.h"
 
-1424779720 source:/home/sanquira/Dokumenty/programovani/CPP/DTW_matrix_computation/DTW_matrix_computation/main.cpp
+1428315745 source:/home/sanquira/Dokumenty/programovani/CPP/DTW_matrix_computation/DTW_matrix_computation/main.cpp
 	<iostream>
 	<vector>
 	<math.h>
+	"DTW.h"
+	"signal_preproc.h"
+	"cepstral_proc.h"
+	"VAD.h"
 
 1426068758 /home/ales/Dokumenty/NetBeansProjects/CPP/DTW_matrix_computation/DTW_matrix_computation/DTW.h
 	<vector>
@@ -33,4 +37,24 @@
 	<vector>
 
 1428158658 /home/ales/Dokumenty/NetBeansProjects/CPP/DTW_matrix_computation/DTW_matrix_computation/portaudio.h
+
+1428309139 /home/sanquira/Dokumenty/programovani/CPP/DTW_matrix_computation/DTW_matrix_computation/DTW.h
+	<vector>
+
+1428316491 /home/sanquira/Dokumenty/programovani/CPP/DTW_matrix_computation/DTW_matrix_computation/signal_preproc.h
+	<iomanip>
+	<fstream>
+	<vector>
+	"portaudio.h"
+	<float.h>
+
+1428309139 /home/sanquira/Dokumenty/programovani/CPP/DTW_matrix_computation/DTW_matrix_computation/portaudio.h
+
+1428309309 /home/sanquira/Dokumenty/programovani/CPP/DTW_matrix_computation/DTW_matrix_computation/cepstral_proc.h
+	<vector>
+	<math.h>
+	<fftw3.h>
+
+1428309139 /home/sanquira/Dokumenty/programovani/CPP/DTW_matrix_computation/DTW_matrix_computation/VAD.h
+	<vector>
 

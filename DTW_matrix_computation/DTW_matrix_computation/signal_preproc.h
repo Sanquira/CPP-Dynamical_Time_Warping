@@ -5,6 +5,7 @@
 #include <fstream>
 #include <vector>
 #include "portaudio.h"
+#include <float.h>
 
 using namespace std;
 
@@ -36,10 +37,10 @@ const PaStreamCallbackTimeInfo* timeInfo,
 PaStreamCallbackFlags statusFlags,void *userdata)
 {
 
-    short** pData = (short**) inputBuffer;
+    short* pData = (short*) inputBuffer;
 
-    for(long int i = 0;i<framesPerBuffer;i++){
-        recSig.push_back(pData[0][i]);
+    for(int i = 0;i<framesPerBuffer;i++){
+        recSig.push_back((*pData++)/32768.0);
     }
 
     return paContinue;
@@ -51,10 +52,10 @@ PaStreamCallbackFlags statusFlags,void *userdata)
 */
 vector<double> record_signal()
 {
-    cout << "Init PA" << endl;
-    cout << Pa_GetErrorText(Pa_Initialize()) << endl ;
-
-    cout << "Open PA Stream" << endl;
+    //cout << "Init PA" << endl;
+    //cout << Pa_GetErrorText(Pa_Initialize()) << endl ;
+    Pa_Initialize();
+    //cout << "Open PA Stream" << endl;
     /*
     PaStreamParameters  inputParameters;
     inputParameters.channelCount=1;
@@ -64,25 +65,18 @@ vector<double> record_signal()
 
     PaStream* stream;
 
-    cout << Pa_GetDefaultInputDevice() << endl;
-    cout << Pa_GetErrorText(Pa_OpenDefaultStream(&stream,1,0,paInt16,16000,512,callbackFce,NULL)) << endl;
-
+    Pa_OpenDefaultStream(&stream,1,0,paInt16,16000,512,callbackFce,NULL);
     Pa_StartStream(stream);
-    cout << "Recording" << endl;
 
     int delayCntr = 0;
-    while( delayCntr++ < 1 )
+    while( delayCntr++ < 2 )
     {
         Pa_Sleep(1000);
     }
 
+    Pa_StopStream(stream);
     Pa_CloseStream(stream);
     Pa_Terminate();
-
-    cout << "Recorded" << endl;
-
-    cout << recSig.size() << endl;
-
 
     return recSig;
 
