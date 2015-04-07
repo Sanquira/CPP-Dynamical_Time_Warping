@@ -1,3 +1,6 @@
+#Ignore these directories
+dtw
+
 #Xcode project files
 *.xcodeproj
 
