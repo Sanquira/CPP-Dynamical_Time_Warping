@@ -50,10 +50,10 @@ PaStreamCallbackFlags statusFlags,void *userdata)
 
 vector<double> record_signal()
 {
-    //cout << "Init PA" << endl;
-    //cout << Pa_GetErrorText(Pa_Initialize()) << endl ;
+    cout << "Init PA" << endl;
+    cout << Pa_GetErrorText(Pa_Initialize()) << endl ;
     Pa_Initialize();
-    //cout << "Open PA Stream" << endl;
+    cout << "Open PA Stream" << endl;
     /*
     PaStreamParameters  inputParameters;
     inputParameters.channelCount=1;

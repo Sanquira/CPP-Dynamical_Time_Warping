@@ -1,3 +1,6 @@
+#Xcode project files
+.xcodeproj
+
 # Compiled Object files
 *.slo
 *.lo
