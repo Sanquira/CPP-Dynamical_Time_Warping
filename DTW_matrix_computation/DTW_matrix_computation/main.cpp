@@ -8,6 +8,9 @@
 
 using namespace std;
 
+/**
+* Komentar k hlavni fci aby bylo poznat ze se neco deje.
+*/
 int main()
 {
     //cout << "Run" <<endl;
