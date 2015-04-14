@@ -7,6 +7,26 @@
 
 using namespace std;
 
+void print_vector2(vector< vector<double> > vec){
+    cout << "\n";
+    
+    for (int i = 0; i < vec.size(); i++) {
+        
+        for (int j = 0; j < vec[0].size(); j++) {
+            
+            cout << vec[i][j] << " ";
+            
+        }
+        
+        cout << ";" <<"\n";
+        
+    }
+    
+    cout << "\n";
+    
+}
+
+
 double mel(int value)
 {
 	return 1125 * log(1 + value / 700.0);
@@ -191,6 +211,7 @@ vector<vector<double> > make_mfcc(vector<double> signal, int frame_lenght_ms, in
 		}
 //		if(VAD_energy(frame,power(load_signal("ticho.raw"))*2)){
             output = (compute_mfcc(filter_bank, hamming_window, frame, num_ceps));
+            
             matrix.push_back(output);
 //		}
 	}

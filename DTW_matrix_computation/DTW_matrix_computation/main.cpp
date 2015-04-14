@@ -5,6 +5,7 @@
 #include "signal_preproc.h"
 #include "cepstral_proc.h"
 #include "VAD.h"
+#include <fstream>
 
 using namespace std;
 
@@ -41,11 +42,19 @@ int main()
     }
     //end of scrap
 
-    vector<double> rsig = record_signal();
-    for(int i=0 ;i<rsig.size();i++){
-        cout << rsig[i] << " ";
-    }
-    cout << endl;
+   // vector<double> rsig = record_signal();
+    vector<double> rsig = load_signal("/Users/jirifiala/Documents/C++/CPP/DTW_matrix_computation/DTW_matrix_computation/SA176S01.CS0");
+    save_sig(rsig);
+    cout << "done" << endl;
+    
+    vector<vector<double> > mfcc = make_mfcc(rsig, 25, 10, 16000, 24, 0, 8000, 13);
+    
+    print_vector2(mfcc);
+
+ //   for(int i=0 ;i<rsig.size();i++){
+ //       cout << [i] << " ";
+ //   }
+ //   cout << endl;
 /*
     vector<vector<double> > sigs = {load_signal("jedna.raw"),load_signal("dva.raw"),load_signal("tri.raw"),load_signal("ctyry.raw")};
     vector<double> pattern = load_signal("jedna_test.raw");

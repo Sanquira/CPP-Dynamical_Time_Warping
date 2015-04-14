@@ -11,6 +11,18 @@ using namespace std;
 
 vector<double> recSig;
 
+int save_sig (vector<double> signal){
+
+    std::ofstream f("recorded.txt");
+    for(vector<double>::const_iterator i = signal.begin(); i != signal.end(); ++i) {
+        f << *i << '\n';
+    }
+    
+    return 0;
+}
+
+
+
 vector<double> load_signal(string name)
 {
     vector<double> sig;
