@@ -4,6 +4,16 @@
 #include <vector>
 using namespace std;
 
+
+double cepstral_dist_c2(vector<double> frst, vector<double> scnd){
+    double csm=0;
+    for (int i=0;i<frst.size();i++){
+        csm+=pow(frst[i]-scnd[i],2);
+    }
+    return csm;
+}
+
+
 double cepstral_dist_c1(vector<double> frst, vector<double> scnd){
     double csm=0;
     for (int i=0;i<frst.size();i++){

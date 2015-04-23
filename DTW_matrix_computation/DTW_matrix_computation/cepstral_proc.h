@@ -26,6 +26,14 @@ void print_vector2(vector< vector<double> > vec){
     
 }
 
+void print_vector(vector<double> input){
+
+    for (int i = 0; i < input.size(); i++) {
+        cout << input[i] << ", ";
+    }
+    cout << endl;
+}
+
 
 double mel(int value)
 {

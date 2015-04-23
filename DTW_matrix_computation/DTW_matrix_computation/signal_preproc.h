@@ -11,14 +11,23 @@ using namespace std;
 
 vector<double> recSig;
 
-int save_sig (vector<double> signal){
+int save_sig (vector<vector<double> > signal){
 
     std::ofstream f("recorded.txt");
-    for(vector<double>::const_iterator i = signal.begin(); i != signal.end(); ++i) {
-        f << *i << '\n';
-    }
     
-    return 0;
+    for (int j = 0; j<signal.size(); j++) {
+ 
+        vector<double> radek = signal[j];
+ 
+    for(vector<double>::const_iterator i = radek.begin(); i != radek.end(); ++i) {
+        f << *i << ",";
+    }
+        f << ";" << '\n';
+    }
+    f.close();
+
+    cout << "output matrix saved to: recorded.txt" << endl;
+ return 0;
 }
 
 

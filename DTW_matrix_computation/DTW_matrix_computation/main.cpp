@@ -42,14 +42,16 @@ int main()
     }
     //end of scrap
 
-   // vector<double> rsig = record_signal();
-    vector<double> rsig = load_signal("/Users/jirifiala/Documents/C++/CPP/DTW_matrix_computation/DTW_matrix_computation/SA176S01.CS0");
-    save_sig(rsig);
+   //vector<double> rsig = record_signal();
+   vector<double> rsig = load_signal("/Users/jirifiala/Documents/C++/CPP/DTW_matrix_computation/DTW_matrix_computation/SA176S01.CS0");
+    vector<vector<double> > mfcc = make_mfcc(rsig, 25, 10, 16000, 24, 0, 8000, 13);
+    save_sig(mfcc);
+    VAD(mfcc);
     cout << "done" << endl;
     
-    vector<vector<double> > mfcc = make_mfcc(rsig, 25, 10, 16000, 24, 0, 8000, 13);
+    //vector<vector<double> > mfcc = make_mfcc(rsig, 25, 10, 16000, 24, 0, 8000, 13);
     
-    print_vector2(mfcc);
+    //print_vector2(mfcc);
 
  //   for(int i=0 ;i<rsig.size();i++){
  //       cout << [i] << " ";
