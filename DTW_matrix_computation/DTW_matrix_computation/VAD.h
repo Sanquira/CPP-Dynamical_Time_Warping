@@ -18,7 +18,7 @@ bool VAD_energy(vector<double> input,double treshold)
 	return (power(input))>=treshold?true:false;
 }
 
-void VAD(vector<vector<double> > mfcc){
+vector<bool> VAD(vector<vector<double> > mfcc,double perc,double Dynmin,double qmax1,double qmax2,double qmin1,double qmin2){
     
     vector<double> out;
     
@@ -43,12 +43,72 @@ void VAD(vector<vector<double> > mfcc){
     }
     
  
-    //compute the matrix of distances
-    vector<double> distances (mfcc.size());
+    //compute the vector of distances
+    vector<double> Dv (mfcc.size());
     for (int i = 0; i < mfcc.size(); i++) {
-        distances[i] = cepstral_dist_c2(background, mfcc[i]);
+        Dv[i] = cepstral_dist_c2(background, mfcc[i]);
     }
     
+    //set parameters
+    
+    
+    //vector allocation
+    vector<bool> output (mfcc.size());
+    vector<double> Dpv (mfcc.size());
+    vector<double> Dmaxv (mfcc.size());
+    vector<double> Dminv (mfcc.size());
+
+    //find max of the first two elements
+    double max;
+    (Dv[0])>=Dv[1]?max=Dv[0]:max=Dv[1];
+   
+    
+    //find min of the first two elements
+    double min;
+    (Dv[0])>=Dv[1]?min=Dv[1]:min=Dv[0];
+   
+    
+    
+    
+    
+    double Dmax = max+Dynmin/10;
+    double Dmin = min-Dynmin/10;
+    double Dyn = Dmax - Dmin;
+
+    double D,Dp;
+    for (int i = 0; i < mfcc.size(); i++) {
+        
+        D = Dv[i];
+        
+        if (D > Dmax) {
+            Dmax = qmax1*Dmax + (1-qmax1)*D ;
+        } else {
+            Dmax = qmax2*Dmax + (1-qmax2)*D ;
+        }
+        
+        if ( D < Dmin ){
+            Dmin = qmin1*Dmin + (1-qmin1)*D ;
+        }else{
+            Dmin = qmin2*Dmin + (1-qmin2)*D ;
+        }
+        
+        Dyn=Dmax-Dmin;
+        
+        Dp=Dmin+perc/100*(Dmax-Dmin);
+        Dpv[i] = Dp;
+        Dmaxv[i]=Dmax;
+        Dminv[i]=Dmin;
+        
+        if (( D>Dp) && (Dyn > Dynmin)){
+            output[i]=true;
+        }else{
+            output[i]=false;
+        }
+        
+        
+    }
+    
+    return output;
     
 }
 

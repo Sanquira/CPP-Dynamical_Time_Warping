@@ -11,7 +11,7 @@ using namespace std;
 
 vector<double> recSig;
 
-int save_sig (vector<vector<double> > signal){
+int save_matrix (vector<vector<double> > signal){
 
     std::ofstream f("recorded.txt");
     
@@ -30,6 +30,21 @@ int save_sig (vector<vector<double> > signal){
  return 0;
 }
 
+int save_vector (vector<double> signal){
+    
+    std::ofstream f("saved_vector.txt");
+    
+   
+        
+        for(vector<double>::const_iterator i = signal.begin(); i != signal.end(); ++i) {
+            f << *i << ",";
+        }
+   
+    f.close();
+    
+    cout << "vector saved to: recorded.txt" << endl;
+    return 0;
+}
 
 
 vector<double> load_signal(string name)

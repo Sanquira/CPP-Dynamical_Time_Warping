@@ -45,8 +45,14 @@ int main()
    //vector<double> rsig = record_signal();
    vector<double> rsig = load_signal("/Users/jirifiala/Documents/C++/CPP/DTW_matrix_computation/DTW_matrix_computation/SA176S01.CS0");
     vector<vector<double> > mfcc = make_mfcc(rsig, 25, 10, 16000, 24, 0, 8000, 13);
-    save_sig(mfcc);
-    VAD(mfcc);
+    save_matrix(mfcc);
+    double perc = 20;
+    double Dynmin = 50;
+    double qmax1 = 0.8;
+    double qmax2 = 0.995;
+    double qmin1 = 0.8;
+    double qmin2 = 0.9999;
+    VAD(mfcc,perc,Dynmin,qmax1,qmax2,qmin1,qmin2);
     cout << "done" << endl;
     
     //vector<vector<double> > mfcc = make_mfcc(rsig, 25, 10, 16000, 24, 0, 8000, 13);
