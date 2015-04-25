@@ -18,7 +18,7 @@ bool VAD_energy(vector<double> input,double treshold)
 	return (power(input))>=treshold?true:false;
 }
 
-vector<bool> VAD(vector<vector<double> > mfcc,double perc,double Dynmin,double qmax1,double qmax2,double qmin1,double qmin2){
+vector<double> VAD(vector<vector<double> > mfcc,double perc,double Dynmin,double qmax1,double qmax2,double qmin1,double qmin2){
     
     vector<double> out;
     
@@ -53,7 +53,7 @@ vector<bool> VAD(vector<vector<double> > mfcc,double perc,double Dynmin,double q
     
     
     //vector allocation
-    vector<bool> output (mfcc.size());
+    vector<double> output (mfcc.size());
     vector<double> Dpv (mfcc.size());
     vector<double> Dmaxv (mfcc.size());
     vector<double> Dminv (mfcc.size());
@@ -100,9 +100,9 @@ vector<bool> VAD(vector<vector<double> > mfcc,double perc,double Dynmin,double q
         Dminv[i]=Dmin;
         
         if (( D>Dp) && (Dyn > Dynmin)){
-            output[i]=true;
+            output[i]=1;
         }else{
-            output[i]=false;
+            output[i]=0;
         }
         
         
